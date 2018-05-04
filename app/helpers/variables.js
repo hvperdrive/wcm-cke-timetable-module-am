@@ -1,5 +1,3 @@
-"use strict";
-
 const Q = require("q");
 const VariableHelper = require("@wcm/module-helper").variables;
 

@@ -1,5 +1,3 @@
-"use strict";
-
 const variablesHelper = require("../helpers/variables");
 
 const onLoadComplete = () => {

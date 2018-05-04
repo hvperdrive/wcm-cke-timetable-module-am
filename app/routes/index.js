@@ -1,5 +1,3 @@
-"use strict";
-
 const R = require("ramda");
 const path = require("path");
 const glob = require("glob");

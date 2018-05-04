@@ -1,5 +1,3 @@
-"use strict";
-
 const boilerplateController = require("../controllers/boilerplate");
 
 // Get the configuration of the WCM

@@ -1,5 +1,3 @@
-"use strict";
-
 const R = require("ramda");
 
 module.exports.test = R.curry((type, req, res) => {

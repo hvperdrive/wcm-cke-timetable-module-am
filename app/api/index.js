@@ -1,5 +1,3 @@
-"use strict";
-
 const exposedMethod = require("./exposedMethod");
 
 module.exports = {
