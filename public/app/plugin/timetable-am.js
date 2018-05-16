@@ -138,7 +138,7 @@
 								label: "Add a timetable",
 								command: "timetable",
 								toolbar: "insert",
-								icon: CKEditorTimetableAMConfig.cssDirPath + "/icons/timetable.png",
+								icon: CKEditorTimetableAMConfig.assetsDirPath + "/icons/timetable.png",
 								hidpi: true,
 							});
 
