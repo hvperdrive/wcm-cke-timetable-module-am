@@ -1,28 +1,35 @@
 (function(angular, CKEDITOR) {
-	angular.module("cke-timetable-am_0.0.1")
+	angular.module("cke-timetable-am_0.0.1.factories")
 		.factory("ckeditorTimetableAMPlugin", [
-
-			"$document",
+			"$filter",
 			"CKEditorTimetableAMConfig",
 			"DialogService",
 
 			function ckeditorTimetableAMPlugin(
-				$document,
+				$filter,
 				CKEditorTimetableAMConfig,
 				DialogService
 			) {
 				var defaultDayTemplate = "<header><h2></h2></header>" +
-					"<section><table><thead><tr><th>Tijdstip</th><th>Inhoud</th></tr></thead>" +
+					"<section class=\"wcm-timetable__day__table\"><table><thead><tr><th>Tijdstip</th><th>Inhoud</th></tr></thead>" +
 					"<tbody class=\"wcm-timetable__day__content\"></tbody>" +
 					"</table></section>";
 
+				function convertDateToHour(date) {
+					return $filter("date")(date, "HH:mm");
+				}
+
+				function convertDateToDayMonth(date) {
+					return $filter("date")(date, "d MMM");
+				}
+
 				function getWidgetData(dayContainers) {
 					// Loop over the days and extract the dataset of the elemen and its child rows.
-					return _.map(dayContainers || [], function(day) {
+					return _.map([].slice.call(dayContainers.toArray()), function(day) {
 						return {
-							meta: day.$.dataset,
-							items: _.map(day.find(".wcm-timetable__day__content>tr"), function(item) {
-								return item.$.dataset;
+							meta: _.assign({}, day.$.dataset),
+							items: _.map(day.find(".wcm-timetable__day__content>tr").toArray(), function(item) {
+								return _.assign({}, item.$.dataset);
 							}),
 						};
 					});
@@ -30,52 +37,55 @@
 
 				function updateWidget(days, container) {
 					// Loop over days and create approperiate html
-					var daysTemplate = _.reduce(days, function(day) {
+					var daysTemplate = _.reduce(days, function(outerAcc, day) {
 						// Create a day div with a specific class an default template
-						var dayContainer = CKEDITOR.dom.element("div");
+						var dayContainer = new CKEDITOR.dom.element("div");
 
 						dayContainer.addClass("wcm-timetable__day");
 						dayContainer.setHtml(defaultDayTemplate);
 
 						// Get newly created header and content elements of the day div to set custom data
-						var dayHeader = dayContainer.findOne("header");
+						var dayTitle = dayContainer.findOne("header>h2");
 						var dayContent = dayContainer.findOne(".wcm-timetable__day__content");
 
-						dayHeader.setData("date", day.meta.date);
+						dayContainer.data("date", new Date(day.meta.date).toISOString());
+						dayTitle.setHtml(convertDateToDayMonth(day.meta.date));
 
 						// Loop through the items of the day and generate an accumulative template string
-						var dayContentInnerTemplate = _.reduce(day.items, function(item) {
+						var dayContentInnerTemplate = _.reduce(day.items, function(innerAcc, item) {
 							// Create a row with 2 cells
-							var row = CKEDITOR.dom.element("tr");
-							var tdTime = CKEDITOR.dom.element("td");
-							var tdDescription = CKEDITOR.dom.element("td");
+							var row = new CKEDITOR.dom.element("tr");
+							var tdTime = new CKEDITOR.dom.element("td");
+							var tdDescription = new CKEDITOR.dom.element("td");
 
 							row.append(tdTime, true);
 							row.append(tdDescription, false);
 
 							// Add data tot de row dataset
-							row.data("startTime", item.startTime);
-							row.data("endTime", item.endTime);
-							row.data("description", item.description);
+							row.data("start-time", item.startTime || "");
+							row.data("end-time", item.endTime || "");
+							row.data("description", item.description || "");
 
 							// Set innerHTML for a visible representatation
-							tdTime.setHtml(item.startTime.toISOString() + " - " + item.endTime.toISOString());
+							tdTime.setHtml(convertDateToHour(item.startTime) + " - " + convertDateToHour(item.endTime));
 							tdDescription.setHtml(item.description);
 
 							// return row html
-							return row.getHtml();
+							innerAcc += row.getOuterHtml();
+
+							return innerAcc;
 						}, "");
 
 						// set items template in the dayContent div
 						dayContent.setHtml(dayContentInnerTemplate);
+
+						outerAcc += dayContainer.getOuterHtml();
+
+						return outerAcc;
 					}, "");
 
 					// Set the generated html in the timetable container div
 					container.setHtml(daysTemplate);
-				}
-
-				function getContainer(element) {
-					return element.findOne(".wcm-timetable");
 				}
 
 				function getDayContainers(element) {
@@ -94,12 +104,12 @@
 						init: function(editor) {
 							editor.widgets.add("timetable", {
 								template: "<div class=\"wcm-timetable\"></div>",
-								allowedContent: "",
+								allowedContent: "div[data-*]; header section table thead tbody tr[data-*]; td",
 								upcast: function(el) {
 									return el.name === "div" && el.hasClass("wcm-timetable");
 								},
 								downcast: function() {
-									updateWidget(this.data.days, getContainer(this.element));
+									updateWidget(this.data.days, this.element);
 								},
 								init: function() {
 									var widget = this;
@@ -112,25 +122,12 @@
 
 										DialogService.openModal({
 											templateUrl: CKEditorTimetableAMConfig.modulePath + "templates/timetableModal.tpl.html",
+											controller: "timetableAMModalController",
 											data: newData,
 										}).then(function() {
-											var tempMockData = [{
-												meta: {
-													date: new Date(),
-												},
-												items: [{
-													startTime: new Date(),
-													endTime: new Date(),
-													description: "something 1",
-												}, {
-													startTime: new Date(),
-													endTime: new Date(),
-													description: "something 2",
-												}],
-											}];
+											widget.setData("days", newData.days);
+											updateWidget(newData.days, widget.element);
 
-											widget.setData("days", tempMockData);
-											updateWidget(tempMockData, widget.element);
 											editor.fire("change");
 										});
 									});
@@ -144,6 +141,8 @@
 								icon: "placeholder",
 								hidpi: true,
 							});
+
+							editor.addContentsCss(CKEditorTimetableAMConfig.cssDirPath + "/style.css");
 						},
 					},
 				};

@@ -6,14 +6,16 @@
 
 			function ckeditorTimetablePluginProvider($provide) {
 
-				var registerPlugin = function registerPlugin() {
+				var registerAll = function registerAll() {
 					$provide.decorator("ckeditorService", [
 
 						"$delegate",
-						"ckeditorTimetableAMPlugin",
+						"ckeditorPluginDefinitionsTimetableAM",
 
-						function(ckeditorService, ckeditorTimetableAMPlugin) {
-							ckeditorService.activatePlugin("timetableAM", ckeditorTimetableAMPlugin.plugin. ckeditorTimetableAMPlugin.meta);
+						function(ckeditorService, ckeditorPluginDefinitionsTimetableAM) {
+							_.forEach(ckeditorPluginDefinitionsTimetableAM, function(plugin, name) {
+								ckeditorService.activatePlugin(name, plugin.plugin, plugin.meta);
+							});
 
 							return ckeditorService;
 						},
@@ -21,7 +23,7 @@
 				};
 
 				this.controls = {
-					registerPlugin: registerPlugin,
+					registerAll: registerAll,
 				};
 
 				this.$get = function get() {

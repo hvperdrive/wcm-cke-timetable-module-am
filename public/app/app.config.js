@@ -6,7 +6,7 @@
 			"ckeditorProvider",
 
 			function(ckeditorTimetablePluginProvider) {
-				ckeditorTimetablePluginProvider.controls.registerPlugin();
+				ckeditorTimetablePluginProvider.controls.registerAll();
 			},
 		]);
 })(window.angular);
