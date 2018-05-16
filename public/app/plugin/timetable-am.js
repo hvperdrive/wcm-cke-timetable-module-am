@@ -112,11 +112,25 @@
 
 										DialogService.openModal({
 											templateUrl: CKEditorTimetableAMConfig.modulePath + "templates/timetableModal.tpl.html",
-											controller: "timetableModalController",
 											data: newData,
 										}).then(function() {
-											widget.setData("days", newData.days);
-											updateWidget(newData.days, widget.element);
+											var tempMockData = [{
+												meta: {
+													date: new Date(),
+												},
+												items: [{
+													startTime: new Date(),
+													endTime: new Date(),
+													description: "something 1",
+												}, {
+													startTime: new Date(),
+													endTime: new Date(),
+													description: "something 2",
+												}],
+											}];
+
+											widget.setData("days", tempMockData);
+											updateWidget(tempMockData, widget.element);
 											editor.fire("change");
 										});
 									});
