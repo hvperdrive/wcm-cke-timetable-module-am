@@ -112,6 +112,7 @@
 
 										DialogService.openModal({
 											templateUrl: CKEditorTimetableAMConfig.modulePath + "templates/timetableModal.tpl.html",
+											controller: "timetableModalController",
 											data: newData,
 										}).then(function() {
 											widget.setData("days", newData.days);
