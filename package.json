@@ -18,7 +18,8 @@
   ],
   "wcmModule": {
     "angularDirPath": "public/app/",
-    "cssDirPath": "public/styles/",
+    "cssDirPath": "public/assets/styles/",
+    "assetsDirPath": "public/assets/",
     "moduleConfig": {
       "angularModule": "cke-timetable-am",
       "translationKey": "CKEditor Timetable plugin",
