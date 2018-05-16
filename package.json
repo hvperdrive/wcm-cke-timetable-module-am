@@ -1,7 +1,7 @@
 {
-    "name": "@wcm/boilerplate",
-    "version": "0.0.1",
-    "description": "Boilerplate module",
+    "name": "@wcm/cke-timetable-am",
+    "version": "0.0.2",
+    "description": "CKEditor plugin for WCM that adds a timetable widget.",
     "main": "app",
     "scripts": {
         "test": "NODE_ENV=test APP=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
@@ -10,7 +10,7 @@
         "@wcm:registry": "https://nexusrepo.antwerpen.be/repository/npm-private"
     },
     "keywords": [
-        "Boilerplate",
+        "Timetable",
         "WCM",
         "Pelorus",
         "module",
@@ -18,35 +18,25 @@
     ],
     "wcmModule": {
         "angularDirPath": "public/app/",
-        "cssDirPath": "public/styles/",
+        "cssDirPath": "public/assets/styles/",
+        "assetsDirPath": "public/assets/",
         "moduleConfig": {
-            "angularModule": "wcm-boilerplate",
-            "translationKey": "Boilerplate",
-            "operationType": "boilerplate",
-            "icon": "ban",
-            "type": "system",
-            "machineName": "boilerplate",
-            "navigationItem": true,
+            "angularModule": "cke-timetable-am",
+            "translationKey": "CKEditor Timetable plugin",
+            "navigationItem": false,
             "authentication": {
-                "requiresLogin": true
+                "requiresLogin": false
             }
-        },
-        "variables": []
+        }
     },
     "author": "Jeroen Valcke",
     "license": "ISC",
-    "dependencies": {
-        "@wcm/module-helper": "1.0.0",
-        "glob": "^7.1.2",
-        "path": "^0.12.7",
-        "q": "^1.5.1",
-        "ramda": "^0.25.0",
-        "rootpath": "~0.1.2"
-    },
+    "dependencies": {},
     "devDependencies": {
         "@district01/eslint-config": "1.0.0",
         "apidoc-swagger": "git+https://github.com/JvJefke/apidoc-swagger.git",
         "chai": "~4.1.2",
+        "eslint-plugin-chai-friendly": "^0.4.1",
         "gulp": "~3.9.1",
         "gulp-angular-templatecache": "~2.0.0",
         "gulp-apidoc": "~0.2.0",
