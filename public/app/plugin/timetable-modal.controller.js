@@ -1,5 +1,5 @@
 (function(angular) {
-	angular.module("cke-timetable-am_0.0.2.controllers")
+	angular.module("cke-timetable-am_0.0.3.controllers")
 		.controller("timetableAMModalController", [
 
 			"$scope",

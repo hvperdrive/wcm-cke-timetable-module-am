@@ -1,5 +1,5 @@
-(function(angular, CKEDITOR) {
-	angular.module("cke-timetable-am_0.0.2.factories")
+(function (angular, CKEDITOR) {
+	angular.module("cke-timetable-am_0.0.3.factories")
 		.factory("ckeditorTimetableAMPlugin", [
 			"$filter",
 			"CKEditorTimetableAMConfig",
@@ -25,11 +25,17 @@
 
 				function getWidgetData(dayContainers) {
 					// Loop over the days and extract the dataset of the elemen and its child rows.
-					return _.map([].slice.call(dayContainers.toArray()), function(day) {
+					return _.map([].slice.call(dayContainers.toArray()), function (day) {
 						return {
-							meta: _.assign({}, day.$.dataset),
-							items: _.map(day.find(".wcm-timetable__day__content>tr").toArray(), function(item) {
-								return _.assign({}, item.$.dataset);
+							meta: {
+								date: new Date(day.$.dataset.date)
+							},
+							items: _.map(day.find(".wcm-timetable__day__content>tr").toArray(), function (item) {
+								return {
+									startTime: new Date(item.$.dataset.startTime),
+									endTime: new Date(item.$.dataset.endTime),
+									description: item.$.dataset.description
+								}
 							}),
 						};
 					});
@@ -37,7 +43,7 @@
 
 				function updateWidget(days, container) {
 					// Loop over days and create approperiate html
-					var daysTemplate = _.reduce(days, function(outerAcc, day) {
+					var daysTemplate = _.reduce(days, function (outerAcc, day) {
 						// Create a day div with a specific class an default template
 						var dayContainer = new CKEDITOR.dom.element("div");
 
@@ -52,7 +58,7 @@
 						dayTitle.setHtml(convertDateToDayMonth(day.meta.date));
 
 						// Loop through the items of the day and generate an accumulative template string
-						var dayContentInnerTemplate = _.reduce(day.items, function(innerAcc, item) {
+						var dayContentInnerTemplate = _.reduce(day.items, function (innerAcc, item) {
 							// Create a row with 2 cells
 							var row = new CKEDITOR.dom.element("tr");
 							var tdTime = new CKEDITOR.dom.element("td");
@@ -101,31 +107,32 @@
 						extraPlugins: "timetable",
 					},
 					plugin: {
-						init: function(editor) {
+						init: function (editor) {
 							editor.widgets.add("timetable", {
 								template: "<div class=\"wcm-timetable\"></div>",
 								allowedContent: "div[data-*]; header section table thead tbody tr[data-*]; td",
-								upcast: function(el) {
+								upcast: function (el) {
 									return el.name === "div" && el.hasClass("wcm-timetable");
 								},
-								downcast: function() {
+								downcast: function () {
 									updateWidget(this.data.days, this.element);
 								},
-								init: function() {
+								init: function () {
 									var widget = this;
 									var days = getDayContainers(widget.element);
 
 									widget.setData("days", getWidgetData(days));
 
-									widget.on("edit", function() {
+									widget.on("edit", function () {
 										var newData = angular.copy(this.data);
 
 										DialogService.openModal({
 											templateUrl: CKEditorTimetableAMConfig.modulePath + "templates/timetableModal.tpl.html",
 											controller: "timetableAMModalController",
 											data: newData,
-										}).then(function() {
+										}).then(function () {
 											widget.setData("days", newData.days);
+
 											updateWidget(newData.days, widget.element);
 
 											editor.fire("change");

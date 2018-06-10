@@ -41,13 +41,16 @@
 				</field>
 				<field
 					type="'text'"
-					class="u-width-4-6 fl no-padding-right"
+					class="u-width-3-6 fl no-padding-right"
 					name="'description_' + $index"
 					model="item.description"
 					fieldData="resourceForms.itemForm"
 					required="true"
 					label="'Description' | translate">
 				</field>
+				<div class="u-width-1-6 fl">
+					<button class="c-button c-button--remove c-button--sm u-margin-top-lg" ng-click="removeItem(timeIndex)">Remove</button>
+				</div>
 			</div>
 			<button ng-click="addItem(dayIndex)" class="c-button c-button--alpha c-button--sm c-button--floatRight" translate>Add item</button>
 		</div>
