@@ -1,19 +1,17 @@
-"use strict";
-
 (function(angular) {
-	angular.module("wcm-boilerplate_0.0.1")
-		.provider("boilerplateConfig", [
+	angular.module("cke-timetable-am_0.0.3")
+		.provider("CKEditorTimetableAMConfig", [
 
 			"MODULE_ENV_CONFIG",
 
-			function testConfig(MODULE_ENV_CONFIG) {
+			function timetableConfig(MODULE_ENV_CONFIG) {
 
 				this.API = {
 					name: MODULE_ENV_CONFIG.angularModule,
-					version: "0.0.1",
+					version: "0.0.3",
 					feDirPath: MODULE_ENV_CONFIG.feDirPath,
 					assetsDirPath: MODULE_ENV_CONFIG.assetsDirPath,
-					cssDirPath: MODULE_ENV_CONFIG.cssDirPath
+					cssDirPath: MODULE_ENV_CONFIG.cssDirPath,
 				};
 
 				this.API.modulePath = this.API.feDirPath;
@@ -21,6 +19,6 @@
 				this.$get = function get() {
 					return this.API;
 				};
-			}
+			},
 		]);
 })(window.angular);

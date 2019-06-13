@@ -1,0 +1,67 @@
+<div class="wcm-timetable-modal">
+	<div class="wcm-timetable-modal__header">
+		<h2 class="h3-structure">Timetable configuration</h1>
+	</div>
+
+	<div class="wcm-timetable-modal__day u-clear" ng-repeat="day in ngDialogData.days | orderBy: 'date'" ng-init="dayIndex = $index">
+		<div class="u-clear">
+			<h3 class="fl">Day {{dayIndex + 1}}</h3>
+			<i class="fa fa-close fr" ng-click="removeDay(dayIndex)"></i>
+		</div>
+		<div class="wcm-timetable-modal__day__date">
+			<field
+				type="'date'"
+				class="u-width-3-6 no-padding-left"
+				name="'day_' + $index"
+				model="day.meta.date"
+				fieldData="resourceForms.metaForm"
+				required="true"
+				label="'Day' | translate">
+			</field>
+		</div>
+		<div class="wcm-timetable-modal__day__times u-clear">
+			<div class="wcm-timetable-modal__day__time u-clear" ng-repeat="item in day.items | orderBy: 'starttime'" ng-init="timeIndex = $index">
+				<field
+					type="'time'"
+					class="u-width-1-6 fl no-padding-left"
+					name="'starttime_' + $index"
+					model="item.startTime"
+					fieldData="resourceForms.itemForm"
+					required="true"
+					label="'Start time' | translate">
+				</field>
+				<field
+					type="'time'"
+					class="u-width-1-6 fl"
+					name="'endtime_' + $index"
+					model="item.endTime"
+					fieldData="resourceForms.itemForm"
+					required="true"
+					label="'End time' | translate">
+				</field>
+				<field
+					type="'text'"
+					class="u-width-3-6 fl no-padding-right"
+					name="'description_' + $index"
+					model="item.description"
+					fieldData="resourceForms.itemForm"
+					required="true"
+					label="'Description' | translate">
+				</field>
+				<div class="u-width-1-6 fl">
+					<button class="c-button c-button--remove c-button--sm u-margin-top-lg" ng-click="removeItem(timeIndex)">Remove</button>
+				</div>
+			</div>
+			<button ng-click="addItem(dayIndex)" class="c-button c-button--alpha c-button--sm c-button--floatRight" translate>Add item</button>
+		</div>
+	</div>
+</div>
+
+<div class="c-buttonGroup u-clear u-margin-bottom">
+	<button ng-click="addDay()" class="c-button c-button--alpha c-button--sm c-button--floatRight" translate>Add day</button>
+</div>
+
+<div class="c-buttonGroup">
+	<button ng-click="closeThisDialog()" class="c-button c-button--alpha c-button--sm c-button--floatLeft" translate>cancel</button>
+	<button ng-click="confirm()" class="c-button c-button--error c-button--sm c-button--floatRight" translate>confirm</button>
+</div>
