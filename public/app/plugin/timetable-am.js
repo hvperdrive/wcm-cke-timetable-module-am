@@ -20,7 +20,7 @@
 				}
 
 				function convertDateToDayMonth(date) {
-					return $filter("date")(date, "d MMM");
+					return $filter("date")(date, "d MMMM");
 				}
 
 				function getWidgetData(dayContainers) {
