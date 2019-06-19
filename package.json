@@ -1,6 +1,6 @@
 {
     "name": "@wcm/cke-timetable-am",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "CKEditor plugin for WCM that adds a timetable widget.",
     "main": "app",
     "scripts": {
