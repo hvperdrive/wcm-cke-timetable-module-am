@@ -1,17 +1,19 @@
 (function(angular) {
-	angular.module("cke-timetable-am_0.0.5.factories", []);
-	angular.module("cke-timetable-am_0.0.5.services", ["cke-timetable-am_0.0.5.factories"]);
-	angular.module("cke-timetable-am_0.0.5.controllers", ["cke-timetable-am_0.0.5.services"]);
-	angular.module("cke-timetable-am_0.0.5.directives", ["cke-timetable-am_0.0.5.controllers"]);
+	angular.module("cke-timetable-am_0.0.6.filters", []);
+	angular.module("cke-timetable-am_0.0.6.factories", ["cke-timetable-am_0.0.6.filters"]);
+	angular.module("cke-timetable-am_0.0.6.services", ["cke-timetable-am_0.0.6.factories"]);
+	angular.module("cke-timetable-am_0.0.6.controllers", ["cke-timetable-am_0.0.6.services"]);
+	angular.module("cke-timetable-am_0.0.6.directives", ["cke-timetable-am_0.0.6.controllers"]);
 
-	angular.module("cke-timetable-am_0.0.5", [
+	angular.module("cke-timetable-am_0.0.6", [
 
 		"pelorus.services",
 
-		"cke-timetable-am_0.0.5.factories",
-		"cke-timetable-am_0.0.5.services",
-		"cke-timetable-am_0.0.5.controllers",
-		"cke-timetable-am_0.0.5.directives",
+		"cke-timetable-am_0.0.6.filters",
+		"cke-timetable-am_0.0.6.factories",
+		"cke-timetable-am_0.0.6.services",
+		"cke-timetable-am_0.0.6.controllers",
+		"cke-timetable-am_0.0.6.directives",
 
 	])
 	.run([function() {
