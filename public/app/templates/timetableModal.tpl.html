@@ -20,7 +20,7 @@
 			</field>
 		</div>
 		<div class="wcm-timetable-modal__day__times u-clear">
-			<div class="wcm-timetable-modal__day__time u-clear" ng-repeat="(timeIndex, item) in day.items | orderBy: 'starttime'">
+			<div class="wcm-timetable-modal__day__time u-clear" ng-repeat="item in day.items | timelineIndex | orderBy: sort">
 				<field
 					type="'time'"
 					class="u-width-1-6 fl no-padding-left"
@@ -49,7 +49,7 @@
 					label="'Description' | translate">
 				</field>
 				<div class="u-width-1-6 fl">
-					<button class="c-button c-button--remove c-button--sm u-margin-top-lg" ng-click="removeItem(dayIndex, timeIndex)">Remove</button>
+					<button class="c-button c-button--remove c-button--sm u-margin-top-lg" ng-click="removeItem(dayIndex, item.index)">Remove</button>
 				</div>
 			</div>
 			<button ng-click="addItem(dayIndex)" class="c-button c-button--alpha c-button--sm c-button--floatRight" translate>Add item</button>

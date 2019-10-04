@@ -24,7 +24,7 @@
 				}
 
 				function getWidgetData(dayContainers) {
-					// Loop over the days and extract the dataset of the elemen and its child rows.
+					// Loop over the days and extract the dataset of the element and its child rows.
 					return _.map([].slice.call(dayContainers.toArray()), function (day) {
 						return {
 							meta: {

@@ -25,11 +25,21 @@
 
 				$scope.addItem = function addItem(dayIndex) {
 					$scope.ngDialogData.days[dayIndex].items.push({
-						starttime: null,
-						endtime: null,
+						startTime: undefined,
+						endTime: undefined,
 						description: "",
 					});
 				};
+
+				$scope.sort = function sort(item) {
+					if (!_.get(item, "startTime")) {
+						// Will be compared to other strings that use ISO date format.
+						// Using this string will ensure that empty values will be sorted to the end.
+						return "z"
+					}
+
+					return _.get(item, "startTime");
+				}
 
 				$scope.removeDay = function removeDay(dayIndex) {
 					$scope.ngDialogData.days.splice(dayIndex, 1);

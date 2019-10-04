@@ -1,5 +1,6 @@
 (function(angular) {
-	angular.module("cke-timetable-am_0.0.5.factories", []);
+	angular.module("cke-timetable-am_0.0.5.filters", []);
+	angular.module("cke-timetable-am_0.0.5.factories", ["cke-timetable-am_0.0.5.filters"]);
 	angular.module("cke-timetable-am_0.0.5.services", ["cke-timetable-am_0.0.5.factories"]);
 	angular.module("cke-timetable-am_0.0.5.controllers", ["cke-timetable-am_0.0.5.services"]);
 	angular.module("cke-timetable-am_0.0.5.directives", ["cke-timetable-am_0.0.5.controllers"]);
@@ -8,6 +9,7 @@
 
 		"pelorus.services",
 
+		"cke-timetable-am_0.0.5.filters",
 		"cke-timetable-am_0.0.5.factories",
 		"cke-timetable-am_0.0.5.services",
 		"cke-timetable-am_0.0.5.controllers",
