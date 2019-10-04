@@ -1,5 +1,5 @@
 (function(angular) {
-	angular.module("cke-timetable-am_0.0.5")
+	angular.module("cke-timetable-am_0.0.6")
 		.provider("ckeditorTimetablePlugin", [
 
 			"$provide",
