@@ -3,14 +3,15 @@
 		<h2 class="h3-structure">Timetable configuration</h1>
 	</div>
 
-	<div class="wcm-timetable-modal__day u-clear" ng-repeat="(dayIndex, day) in ngDialogData.days | orderBy: 'date'">
+	<div class="wcm-timetable-modal__day u-clear" ng-repeat="day in ngDialogData.days | timelineIndex | orderBy: sortDays">
 		<div class="u-clear">
-			<h3 class="fl">Day {{dayIndex + 1}}</h3>
-			<i class="fa fa-close fr" ng-click="removeDay(dayIndex)"></i>
+			<h3 class="fl">Day {{day.index + 1}}</h3>
+			<i class="fa fa-close fr" ng-click="removeDay(day.index)"></i>
 		</div>
 		<div class="wcm-timetable-modal__day__date">
 			<field
 				type="'date'"
+				ng-model-options="{ updateOn: 'blur' }"
 				class="u-width-3-6 no-padding-left"
 				name="'day_' + $index"
 				model="day.meta.date"
@@ -20,9 +21,10 @@
 			</field>
 		</div>
 		<div class="wcm-timetable-modal__day__times u-clear">
-			<div class="wcm-timetable-modal__day__time u-clear" ng-repeat="item in day.items | timelineIndex | orderBy: sort">
+			<div class="wcm-timetable-modal__day__time u-clear" ng-repeat="item in day.items | timelineIndex | orderBy: sortTimes">
 				<field
 					type="'time'"
+					ng-model-options="{ updateOn: 'blur' }"
 					class="u-width-1-6 fl no-padding-left"
 					name="'starttime_' + $index"
 					model="item.startTime"
