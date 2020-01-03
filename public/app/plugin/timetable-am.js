@@ -1,5 +1,5 @@
 (function (angular, CKEDITOR) {
-	angular.module("cke-timetable-am_1.0.0.factories")
+	angular.module("cke-timetable-am_1.1.0.factories")
 		.factory("ckeditorTimetableAMPlugin", [
 			"$filter",
 			"CKEditorTimetableAMConfig",

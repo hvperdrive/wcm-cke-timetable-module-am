@@ -1,52 +1,52 @@
 {
-  "name": "@wcm/cke-timetable-am",
-  "version": "1.0.1",
-  "description": "CKEditor plugin for WCM that adds a timetable widget.",
-  "main": "app",
-  "scripts": {
-    "test": "NODE_ENV=test APP=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
-  },
-  "publishConfig": {
-    "@wcm:registry": "https://nexusrepo.antwerpen.be/repository/npm-private/"
-  },
-  "keywords": [
-    "Timetable",
-    "WCM",
-    "Pelorus",
-    "module",
-    "CMS"
-  ],
-  "wcmModule": {
-    "angularDirPath": "public/app/",
-    "cssDirPath": "public/assets/styles/",
-    "assetsDirPath": "public/assets/",
-    "moduleConfig": {
-      "angularModule": "cke-timetable-am",
-      "translationKey": "CKEditor Timetable plugin",
-      "navigationItem": false,
-      "authentication": {
-        "requiresLogin": false
-      }
+    "name": "@wcm/cke-timetable-am",
+    "version": "1.1.0",
+    "description": "CKEditor plugin for WCM that adds a timetable widget.",
+    "main": "app",
+    "scripts": {
+        "test": "NODE_ENV=test APP=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
+    },
+    "publishConfig": {
+        "@wcm:registry": "https://nexusrepo.antwerpen.be/repository/npm-private/"
+    },
+    "keywords": [
+        "Timetable",
+        "WCM",
+        "Pelorus",
+        "module",
+        "CMS"
+    ],
+    "wcmModule": {
+        "angularDirPath": "public/app/",
+        "cssDirPath": "public/assets/styles/",
+        "assetsDirPath": "public/assets/",
+        "moduleConfig": {
+            "angularModule": "cke-timetable-am",
+            "translationKey": "CKEditor Timetable plugin",
+            "navigationItem": false,
+            "authentication": {
+                "requiresLogin": false
+            }
+        }
+    },
+    "author": "Jeroen Valcke",
+    "license": "ISC",
+    "dependencies": {
+        "@wcm/participation-am": "^0.2.1"
+    },
+    "devDependencies": {
+        "@district01/eslint-config": "1.0.0",
+        "apidoc-swagger": "git+https://github.com/JvJefke/apidoc-swagger.git",
+        "chai": "~4.1.2",
+        "eslint-plugin-chai-friendly": "^0.4.1",
+        "gulp": "~3.9.1",
+        "gulp-angular-templatecache": "~2.0.0",
+        "gulp-apidoc": "~0.2.0",
+        "gulp-apidoc-swagger": "~0.2.2",
+        "gulp-replace": "~0.5.4",
+        "istanbul": "^0.4.5",
+        "mocha": "~4.0.1",
+        "run-sequence": "~1.2.2",
+        "sinon": "~4.0.2"
     }
-  },
-  "author": "Jeroen Valcke",
-  "license": "ISC",
-  "dependencies": {
-    "@wcm/participation-am": "^0.2.1"
-  },
-  "devDependencies": {
-    "@district01/eslint-config": "1.0.0",
-    "apidoc-swagger": "git+https://github.com/JvJefke/apidoc-swagger.git",
-    "chai": "~4.1.2",
-    "eslint-plugin-chai-friendly": "^0.4.1",
-    "gulp": "~3.9.1",
-    "gulp-angular-templatecache": "~2.0.0",
-    "gulp-apidoc": "~0.2.0",
-    "gulp-apidoc-swagger": "~0.2.2",
-    "gulp-replace": "~0.5.4",
-    "istanbul": "^0.4.5",
-    "mocha": "~4.0.1",
-    "run-sequence": "~1.2.2",
-    "sinon": "~4.0.2"
-  }
 }
